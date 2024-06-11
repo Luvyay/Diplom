@@ -1,0 +1,2 @@
+name: Prince Arthas; price: 9142; userName: admin; idUser: 1; date: 2024-06-11T11:09:27.515542100
+name: Orc Warrior; price: 3816; userName: admin; idUser: 1; date: 2024-06-11T11:09:33.308100900

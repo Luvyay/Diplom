@@ -1,0 +1,108 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html, body { height: 100%; }
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+
+  background: linear-gradient(
+    135deg,
+    rgba(14, 18, 30, 0.9),
+    rgba(54, 49, 47, 0.9)
+  );
+  font-family: 'Roboto', helvetica, arial, sans-serif;
+  font-size: 1.5em;
+}
+
+.login-form {
+  width: 100%;
+  padding: 2em;
+  position: relative;
+  background: rgba(0, 0, 0, 0.15);
+
+  @media screen and (min-width: 600px) {
+    width: 50vw;
+    max-width: 15em;
+  }
+}
+
+  .flex-row {
+    display: flex;
+    margin-bottom: 1em;
+  }
+
+  .lf--label {
+    width: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f5f6f8;
+    cursor: pointer;
+  }
+  .lf--input {
+    flex: 1;
+    padding: 1em;
+    border: 0;
+    color: #8f8f8f;
+    font-size: 1rem;
+
+    &:focus {
+      outline: none;
+      transition: transform .15s ease;
+      transform: scale(1.1);
+    }
+  }
+
+  .lf--submit {
+    display: block;
+    padding: 1em;
+    width: 100%;
+
+    background: linear-gradient(
+      to right,
+      #35c3c1,
+      #00d6b7
+    );
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    font-size: .75em;
+    font-weight: 600;
+    text-shadow: 0 1px 0 rgba(black, .2);
+
+    &:focus {
+      outline: none;
+      transition: transform .15s ease;
+      transform: scale(1.1);
+    }
+  }
+
+.lf--forgot {
+  margin-top: 1em;
+  color: #00d6b7;
+  font-size: .65em;
+  text-align: center;
+  position: relative;
+}
+
+::placeholder { color: #8f8f8f; }
+
+.reg_log_text, .reg_log_href {
+    font-size: 15px;
+    color: #00d6b7;
+}
+
+.reg_log_href {
+    font-size: 18px;
+}
+
+.reg_log_href:hover {
+    color: orange;
+}

@@ -1,0 +1,146 @@
+@startuml
+class ru.gb.Shop.model.web.InfoPageBoughtProducts {
+- int countPage
+- Integer prevPage
+- Integer nextPage
+- List<Long> idBoughtProductsInPage
+}
+
+class ru.gb.Shop.config.web.ProjectConfigOpenFeign {
+}
+class ru.gb.Shop.service.web.BoughtProductService {
+- BoughtProductRepository boughtProductRepository
+- EntityManager em
+- {static} int countBoughtProductInPage
++ BoughtProduct addBoughtProducts(BoughtProduct)
++ BoughtProduct updateBoughtProducts(BoughtProduct)
++ List<BoughtProduct> getAllBoughtProductByUserId(Long)
++ InfoPageBoughtProducts getPage(Long)
++ InfoPageBoughtProducts getPageById(int,Long)
+}
+
+
+class ru.gb.Shop.controller.LoginController {
++ String getPageLogin()
+}
+
+class ru.gb.Shop.ShopApplication {
++ {static} void main(String[])
+}
+
+class ru.gb.Shop.config.security.SecurityConfig {
+- UserService userService
+~ SecurityFilterChain filterChain(HttpSecurity)
++ BCryptPasswordEncoder bCryptPasswordEncoder()
+# void configureGlobal(AuthenticationManagerBuilder)
+}
+
+
+interface ru.gb.Shop.repository.security.UserRepository {
+~ User findByUsername(String)
+}
+
+enum ru.gb.Shop.model.web.enums.StatusPay {
++  OK
++  NOT_ENOUGH_MONEY
++  USER_NOT_FOUND
++  NO_QUANTITY
++  ERROR_PAYMENT
+}
+
+class ru.gb.Shop.model.web.Product {
+- Long id
+- String name
+- String description
+- String urlPhoto
+- int price
+- int quantity
+}
+
+class ru.gb.Shop.model.web.InfoPageProducts {
+- int countPage
+- Integer prevPage
+- Integer nextPage
+- List<Product> productsInPage
+}
+
+interface ru.gb.Shop.repository.web.BoughtProductRepository {
+}
+class ru.gb.Shop.service.security.UserService {
+- UserRepository userRepository
+- BCryptPasswordEncoder bCryptPasswordEncoder
++ UserDetails loadUserByUsername(String)
++ User findUserById(Long)
++ User findUserByName(String)
++ List<User> allUsers()
++ boolean saveUser(User)
++ void updateUser(User)
++ boolean deleteUser(Long)
++ void createAdmin()
+}
+
+
+interface ru.gb.Shop.Proxy.RequestToPaymentProxy {
+~ StatusPay toDoPay(String,BigDecimal)
+}
+
+class ru.gb.Shop.model.web.BoughtProduct {
+- Long id
+- Long idUser
+- Long idProduct
+}
+
+class ru.gb.Shop.controller.StoreController {
+- BoughtProductService boughtProductService
+- GetProductsProxy getProductsProxy
+- RequestToPaymentProxy requestToPaymentProxy
+- UserService userService
++ String getHomePageWithProducts(Model)
++ String getPageWithProducts(Model,int)
++ String getProductPageById(Model,Long)
++ String getPageForWriteNumberOfCard(Long,Model,String)
++ String payProduct(Long,Model,String)
++ String getStatusPageOfPay(String,Long,Model)
++ String getProfileWithBoughtProducts()
++ String getPageWithBoughtProducts(Model,int)
+}
+
+
+class ru.gb.Shop.model.security.User {
+- Long id
+- String username
+- String password
+- String passwordConfirm
+- String authority
++ Collection<? extends GrantedAuthority> getAuthorities()
++ String getPassword()
++ String getUsername()
++ boolean isAccountNonExpired()
++ boolean isAccountNonLocked()
++ boolean isCredentialsNonExpired()
++ boolean isEnabled()
+}
+
+
+class ru.gb.Shop.controller.RegistrationController {
+- UserService userService
++ String getPageRegistration(User,Model)
++ String addUser(User,Model)
+}
+
+
+interface ru.gb.Shop.Proxy.GetProductsProxy {
+~ InfoPageProducts getProductsWithQuantityMoreZero()
+~ InfoPageProducts getProductsWithQuantityMoreZeroByIdPage(int)
+~ Product getProductById(Long)
+~ void decreaseQuantityById(Long)
+~ void returnDecreaseById(Long)
+}
+
+
+
+org.springframework.data.jpa.repository.JpaRepository <|-- ru.gb.Shop.repository.security.UserRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- ru.gb.Shop.repository.web.BoughtProductRepository
+org.springframework.security.core.userdetails.UserDetailsService <|.. ru.gb.Shop.service.security.UserService
+org.springframework.security.core.userdetails.UserDetails <|.. ru.gb.Shop.model.security.User
+@enduml

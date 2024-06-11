@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="header">
+    <nav class="menu" id="nav">
+        <span class="nav-item active">
+            <a th:href="@{/}">Главная</a>
+        </span>
+        <span class="nav-item" sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/admin-panel}">Админка</a>
+        </span>
+        <span class="nav-item" sec:authorize="!isAuthenticated()">
+            <a th:href="@{/registration}">Регистрация</a>
+        </span>
+        <span class="nav-item" sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}">Выйти</a>
+        </span>
+    </nav>
+</div>
+<div class="wrapper">
+    <div class="wrap_card" th:each="product : ${products}">
+        <a class="link_card" th:href="@{/product/{id}(id=${product.id})}">
+            <div class="card">
+                <div class="img_area">
+                    <img th:src="@{${product.urlPhoto}}" th:alt="${product.name}">
+                </div>
+                <div class="text_area">
+                    <div class="left">
+                        <span class="title_card" th:text="${product.name}">фцвфвц</span><br>
+                    </div>
+                    <div class="right">
+                        <span th:text="${product.price}" class="price">3569</span><br>
+                        <span th:text="|кол-во: ${product.quantity}|">фцф</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="wrap_footer_content">
+    <div class="wrap_button_page">
+        <a th:if="${prev != null}" th:href="@{/page/{prev}(prev=${prev})}" class="bttn-dark">Prev</a>
+        <a th:if="${next != null}" th:href="@{/page/{next}(next=${next})}" class="bttn">Next</a>
+    </div>
+</div>
+</body>
+</html>

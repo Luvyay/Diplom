@@ -1,0 +1,18 @@
+server:
+  port: 8765
+
+
+spring:
+  application:
+    name: Gateway
+  cloud:
+    gateway:
+      routes:
+        - id: Storage
+          uri: http://localhost:8079/
+          predicates:
+            - Path=/**
+        - id: Payment
+          uri: http://localhost:8078/
+          predicates:
+            - Path=/**

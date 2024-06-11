@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Status-page</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div id="status_wrap">
+    <div th:if="${status.equals('OK')}" th:text="|Товар был успешно куплен|" class="text_status"></div>
+    <div th:if="${status.equals('NOT_ENOUGH_MONEY')}" th:text="|Недостаточно денежных средств|" class="text_status"></div>
+    <div th:if="${status.equals('USER_NOT_FOUND')}" th:text="|Не найден пользователь|" class="text_status"></div>
+    <div th:if="${status.equals('NO_QUANTITY')}" th:text="|К сожалению данного товара нет в наличие|" class="text_status"></div>
+    <div th:if="${status.equals('ERROR_PAYMENT')}" th:text="|Произошла ошибка при оплате, обратитесь к администратору сайта|" class="text_status"></div>
+    <div id="wrap_status_button">
+        <a th:href="@{/}">Вернуться на главную страницу</a>
+        <a th:href="@{/product/{id}(id=${idProduct})}">Вернуться к товару</a>
+    </div>
+</div>
+</body>
+</html>

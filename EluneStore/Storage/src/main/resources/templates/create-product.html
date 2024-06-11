@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style_admin.css}">
+</head>
+<body>
+<div class="header">
+    <nav class="menu" id="nav">
+        <span class="nav-item">
+            <a th:href="@{/}">Главная</a>
+        </span>
+        <span class="nav-item active" sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/admin-panel}">Админка</a>
+        </span>
+        <span class="nav-item" sec:authorize="!isAuthenticated()">
+            <a th:href="@{/registration}">Регистрация</a>
+        </span>
+        <span class="nav-item" sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}">Выйти</a>
+        </span>
+    </nav>
+</div>
+<div class="wrapper">
+    <form th:action="@{/admin-panel/create-product}" th:object="${product}" method="post">
+        <table>
+            <tr>
+                <th>Характеристика</th>
+                <th>Значение</th>
+            </tr>
+            <tr>
+                <td>
+                    <label for="name">Name product: </label>
+                </td>
+                <td>
+                    <input th:field="*{name}" id="name" name="name" placeholder='name' type='text'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="description">Description: </label>
+                </td>
+                <td>
+                    <textarea th:field="*{description}" id="description" name="description" placeholder='description' rows="18" cols="55"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="urlPhoto">Url photo: </label>
+                </td>
+                <td>
+                    <input th:field="*{urlPhoto}" id="urlPhoto" name="urlPhoto" placeholder='urlPhoto' type='text'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="price">Price product: </label>
+                </td>
+                <td>
+                    <input th:field="*{price}" id="price" name="price" placeholder='price' type='text'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="quantity">Quantity product: </label>
+                </td>
+                <td>
+                    <input th:field="*{quantity}" id="quantity" name="quantity" placeholder='quantity' type='text'>
+                </td>
+            </tr>
+        </table>
+        <input type='submit' value='Добавить'>
+    </form>
+</div>
+</body>
+</html>

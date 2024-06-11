@@ -1,0 +1,20 @@
+#spring.application.name=Storage
+server:
+  port: 8079
+spring:
+  main:
+    allow-circular-references: true
+  application:
+    name: Storage
+  datasource:
+    url: jdbc:postgresql://localhost:5430/storagedb
+    username: adstorage
+    password: mypassword2
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+logging:
+  file:
+    name: src/main/java/ru/gb/Storage/Log/LogApp.log

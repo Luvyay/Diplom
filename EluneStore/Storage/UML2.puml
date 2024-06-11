@@ -1,0 +1,127 @@
+@startuml
+interface ru.gb.Storage.repository.security.UserRepository {
+~ User findByUsername(String)
+}
+
+class ru.gb.Storage.service.web.ProductService {
+- ProductRepository productRepository
+- EntityManager em
+- {static} int countProductInPage
++ List<Product> getAllProducts()
++ List<Product> getAllProductsWhereQuantityMoreZero()
++ InfoPageProducts getPage(boolean)
++ InfoPageProducts getPageById(int,boolean)
++ Product getProductById(Long)
++ Product createProduct(Product)
++ Product updateProduct(Product)
++ void deleteProduct(Long)
++ void decreaseQuantityById(Long)
++ void returnDecreaseById(Long)
+}
+
+
+class ru.gb.Storage.controller.rest.StorageRestController {
+- ProductService productService
++ ResponseEntity<InfoPageProducts> getProductsWithQuantityMoreZero()
++ ResponseEntity<InfoPageProducts> getProductsWithQuantityMoreZeroByIdPage(int)
++ ResponseEntity<Product> getProductById(Long)
++ ResponseEntity<Product> decreaseQuantityById(Long)
++ ResponseEntity<Product> returnDecreaseById(Long)
+}
+
+
+class ru.gb.Storage.model.security.User {
+- Long id
+- String username
+- String password
+- String passwordConfirm
+- String authority
++ Collection<? extends GrantedAuthority> getAuthorities()
++ String getPassword()
++ String getUsername()
++ boolean isAccountNonExpired()
++ boolean isAccountNonLocked()
++ boolean isCredentialsNonExpired()
++ boolean isEnabled()
+}
+
+
+class ru.gb.Storage.controller.web.RegistrationController {
+- UserService userService
++ String getPageRegistration(User,Model)
++ String addUser(User,Model)
+}
+
+
+class ru.gb.Storage.config.SecurityConfig {
+- UserService userService
+~ SecurityFilterChain filterChain(HttpSecurity)
++ BCryptPasswordEncoder bCryptPasswordEncoder()
+# void configureGlobal(AuthenticationManagerBuilder)
+}
+
+
+class ru.gb.Storage.controller.web.StorageController {
+- UserService userService
+- ProductService productService
++ String getHomePage(Model)
++ String getPageWithProducts(Model,int)
++ String getProductPageById(Model,Long)
++ String deleteProductById(Long)
++ String getPageForChangeProductById(Long,Model,Product)
++ String changeProductById(Long,Model,Product)
++ String getAdminPage()
++ String getPageForCreateProduct(Product)
++ String createProduct(Product)
+}
+
+
+class ru.gb.Storage.model.web.Product {
+- Long id
+- String name
+- String description
+- String urlPhoto
+- int price
+- int quantity
+}
+
+class ru.gb.Storage.service.security.UserService {
+- UserRepository userRepository
+- BCryptPasswordEncoder bCryptPasswordEncoder
++ UserDetails loadUserByUsername(String)
++ User findUserById(Long)
++ User findUserByName(String)
++ List<User> allUsers()
++ boolean saveUser(User)
++ void updateUser(User)
++ boolean deleteUser(Long)
++ void createAdmin()
+}
+
+
+class ru.gb.Storage.controller.web.LoginController {
++ String getPageLogin()
+}
+
+class ru.gb.Storage.model.web.InfoPageProducts {
+- int countPage
+- Integer prevPage
+- Integer nextPage
+- List<Product> productsInPage
+}
+
+class ru.gb.Storage.StorageApplication {
++ {static} void main(String[])
+}
+
+interface ru.gb.Storage.repository.web.ProductRepository {
+~ List<Product> findAllWhereQuantityMoreZero()
+}
+
+
+
+org.springframework.data.jpa.repository.JpaRepository <|-- ru.gb.Storage.repository.security.UserRepository
+org.springframework.security.core.userdetails.UserDetails <|.. ru.gb.Storage.model.security.User
+org.springframework.security.core.userdetails.UserDetailsService <|.. ru.gb.Storage.service.security.UserService
+org.springframework.data.jpa.repository.JpaRepository <|-- ru.gb.Storage.repository.web.ProductRepository
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+enum ru.gb.Payment.model.enums.StatusPay {
++  OK
++  NOT_ENOUGH_MONEY
++  USER_NOT_FOUND
+}
+
+class ru.gb.Payment.model.DTO.TransferDTO {
+- String numberSender
+- String numberReceiver
+- BigDecimal amount
+}
+
+class ru.gb.Payment.PaymentApplication {
++ {static} void main(String[])
+}
+
+interface ru.gb.Payment.proxy.RequestForPayProxy {
+~ StatusPay requestForPayToBank(TransferDTO)
+}
+
+class ru.gb.Payment.config.ProjectConfigOpenFeign {
+}
+class ru.gb.Payment.controller.PaymentRestController {
+- RequestForPayProxy requestForPayProxy
+- {static} String NUMBER_OF_CARD_RECEIVER
++ ResponseEntity<StatusPay> toDoPay(String,BigDecimal)
+}
+
+
+@enduml

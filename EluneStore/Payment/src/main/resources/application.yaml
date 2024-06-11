@@ -1,0 +1,9 @@
+#spring.application.name=Payment
+server:
+  port: 8078
+spring:
+  application:
+    name: Payment
+logging:
+  file:
+    name: src/main/java/ru/gb/Payment/Log/LogApp.log

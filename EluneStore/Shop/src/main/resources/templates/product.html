@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+<!--    <link rel="stylesheet" href="../static/css/style.css">-->
+</head>
+<body>
+<div class="header">
+    <nav class="menu" id="nav">
+        <span class="nav-item active">
+            <a th:href="@{/}">Главная</a>
+        </span>
+        <span class="nav-item" sec:authorize="isAuthenticated()">
+            <a th:href="@{/profile}">Профиль</a>
+        </span>
+        <span class="nav-item" sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/admin-panel}">Админка</a>
+        </span>
+        <span class="nav-item" sec:authorize="!isAuthenticated()">
+            <a th:href="@{/registration}">Регистрация</a>
+        </span>
+        <span class="nav-item" sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}">Выйти</a>
+        </span>
+    </nav>
+</div>
+<div id="wrap_card">
+    <div id="left">
+        <img th:src="@{${product.urlPhoto}}" th:alt="${product.name}">
+        <div id="wrap_button">
+            <a sec:authorize="isAuthenticated()" th:if="${product.quantity > 0}" th:href="@{/buy?idProduct={idProduct}(idProduct=${product.id})}" class="bttn-product">Купить</a>
+        </div>
+    </div>
+    <div id="right">
+        <div id="name_product">
+            <h2 th:text="${product.name}"></h2>
+        </div>
+        <div id="description_product">
+            <p th:utext="${product.description}"></p><br>
+            <span th:text="|Цена: ${product.price} (кол-во: ${product.quantity})|"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

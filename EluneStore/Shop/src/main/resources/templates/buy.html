@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Buy</title>
+</head>
+<body>
+<div>
+  <form th:action="@{/buy?idProduct={idProduct}(idProduct=${idProduct})}" method="post">
+    <table>
+      <tr>
+        <th>Характеристика</th>
+        <th>Значение</th>
+      </tr>
+      <tr>
+        <td>
+          <label for="numberOfCard">Number of card: </label>
+        </td>
+        <td>
+          <input id="numberOfCard" name="numberOfCard" placeholder='number of card' type='text'>
+        </td>
+      </tr>
+    </table>
+    <input type='submit' value='Отправить'>
+  </form>
+</div>
+</body>
+</html>

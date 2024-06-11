@@ -1,0 +1,25 @@
+#spring.application.name=Shop
+server:
+  port: 8080
+spring:
+  main:
+    allow-circular-references: true
+  application:
+    name: Shop
+  datasource:
+    url: jdbc:postgresql://localhost:5431/shopdb
+    username: adshop
+    password: mypassword2
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: metrics,prometheus,health

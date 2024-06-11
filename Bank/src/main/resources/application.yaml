@@ -1,0 +1,17 @@
+#spring.application.name=Bank
+server:
+  port: 8081
+spring:
+  main:
+    allow-circular-references: true
+  application:
+    name: Bank
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bankdb
+    username: adminbank
+    password: mypassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
